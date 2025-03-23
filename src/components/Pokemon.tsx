@@ -19,19 +19,13 @@ const Pokemon: React.FC = () => {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    if (failedPokemonIdToJoinParty !== null) {
-      const timeout = setTimeout(() => setFailedPokemonIdToJoinParty(null), 500);
-      return () => clearTimeout(timeout); // Clear timeout if another Pokémon is clicked before 500ms
-    }
-  }, [failedPokemonIdToJoinParty]);
-
   const addPokemonParty = (id: string): void => {
     const isAtMaxCapacity: boolean = partyIdList.length >= MAX_PARTY_SIZE;
     const isAlreadyInParty: boolean = partyIdList.includes(id);
 
     if (isAtMaxCapacity === true && isAlreadyInParty === false) {
       setFailedPokemonIdToJoinParty(id);
+      setTimeout(() => setFailedPokemonIdToJoinParty(null), 500);
       return;
     }
 
