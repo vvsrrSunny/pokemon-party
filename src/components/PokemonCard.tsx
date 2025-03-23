@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Pokemon } from '../types';
 import CardAnimation from './CardAnimation';
+import CardImage from './CardImage';
 
 type PokemonCardProps = {
   pokemon: Pokemon;
@@ -33,12 +34,11 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
           onClick={() => addPokemonParty(pokemonId)}
         >
           <CardAnimation />
-          <div className="flex flex-1 flex-col pt-3 pb-6">
-            <img
-              alt=""
-              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonId}.png`}
-              className="mx-auto size-32 shrink-0 rounded-full bg-gray-200"
-            />
+          <p className="absolute top-3.5 left-2 text-sm text-gray-400 sm:left-10 md:left-7 lg:left-5 xl:left-4 2xl:left-2.5">
+            #{pokemonId}
+          </p>
+          <div className="flex flex-1 flex-col items-center pt-3 pb-6">
+            <CardImage pokemonId={pokemonId} />
             <h3
               className={`${partyIdList.includes(pokemonId) ? 'text-white' : 'text-gray-900'} mt-2 text-sm font-bold text-gray-900 capitalize`}
             >
