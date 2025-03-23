@@ -5,12 +5,17 @@ import CardAnimation from './CardAnimation';
 type PokemonCardProps = {
   pokemon: Pokemon;
   partyIdList: string[];
+  failedPokemonIdToJoinParty: string | null;
   addPokemonParty: (id: string) => void;
 };
 
-const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon, partyIdList, addPokemonParty }) => {
+const PokemonCard: React.FC<PokemonCardProps> = ({
+  pokemon,
+  partyIdList,
+  failedPokemonIdToJoinParty,
+  addPokemonParty,
+}) => {
   const [pokemonId, setPokemonId] = useState<string>('0');
-
   useEffect(() => {
     const urlObj = new URL(pokemon.url);
     const segments = urlObj.pathname.split('/').filter(Boolean);
@@ -20,18 +25,14 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon, partyIdList, addPoke
     }
   }, [pokemon.url]);
 
-  const onCardClick = (): void => {
-    addPokemonParty(pokemonId);
-  };
   return (
     <li>
       <div className="group relative">
         <div
-          className={`${partyIdList.includes(pokemonId) ? 'bg-selected-card' : 'bg-card group-hover:bg-white'} flex flex-col rounded-lg text-center group-hover:duration-300 hover:cursor-pointer`}
-          onClick={onCardClick}
+          className={`${partyIdList.includes(pokemonId) ? 'bg-selected-card' : 'bg-card group-hover:bg-white'} ${failedPokemonIdToJoinParty === pokemonId ? 'animate-cancel' : ''} flex flex-col rounded-lg text-center group-hover:duration-300 hover:cursor-pointer`}
+          onClick={() => addPokemonParty(pokemonId)}
         >
           <CardAnimation />
-
           <div className="flex flex-1 flex-col pt-3 pb-6">
             <img
               alt=""
