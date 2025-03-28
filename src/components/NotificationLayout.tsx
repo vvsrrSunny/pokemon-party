@@ -20,6 +20,15 @@ const NotificationLayout: React.FC<PropsWithChildren<NotificationLayoutProps>> =
             {children}
           </div>
         </Transition>
+                {/* The Transition and the below code does the same */}
+        {/* <div
+          className={classNames(
+            show ? 'ease-out' : 'translate-y-10 opacity-0 ease-in',
+            'bg-selected-card pointer-events-auto transform overflow-hidden rounded-lg border-2 border-white transition duration-300',
+          )}
+        >
+          {children}
+        </div> */}
       </div>
     </div>
   );
